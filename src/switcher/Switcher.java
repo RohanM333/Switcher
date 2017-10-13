@@ -79,138 +79,125 @@ public class Switcher implements Runnable{
             Date time = new Date();
             System.out.println(t.format(time));
             SysTime = Integer.parseInt(t.format(time));
-            Time1 = 1100;
-            Time2 = 2300;
-        if(SysTime<=1200)                                            /*****************12:00*****************/
-          {
-            if(SysTime < Time2)                     //VLC Time
-               {
-                try {
+            Time1 = 0000;
+            Time2 = 2142;
+            
+            if(SysTime<=1200)
+            {
+                if(SysTime==Time2)
+                {
+                    //2nd exe to execute
+                    try {
                     pCheck = null;
-                    //Below process pCheck executes the tasklist.exe cmd to get a list of all running processes 
                     pCheck =Runtime.getRuntime().exec(System.getenv("windir") +"\\system32\\"+"tasklist.exe");
-                    //Get each process name in the list in a Buffer input
                     input =  new BufferedReader(new InputStreamReader(pCheck.getInputStream()));
 
-                    //Insert elements of 'input' into 'line' and then check if line is null or not
-                    //Run the loop till the input is !null
-                    //Keep adding each 'line' to the String named 'pidInfo'
                     while ((line = input.readLine()) != null) {
                         pidInfo+=line; 
                     }
-                    //Close the input
                     input.close();
-                    //Check if the huge string 'pidInfo' contains our .exe name
+                    if(pidInfo.contains("chrome.exe"))
+                    {
+                        pCheck = null;
+                        pCheck =Runtime.getRuntime().exec("taskkill /f /im chrome.exe");
+                        System.out.println("Yay!Chrome!!!");
+                        continue;
+                    }
+                    else
+                    {
+                        close();
+                        openChrome();
+                        Thread.sleep(10000);
+                    }
+                    } catch (Exception ex) {
+                        Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //Pause
+                }
+                else
+                {
+                    //1st exe to execute
+                    try {
+                    pCheck = null;
+                    pCheck =Runtime.getRuntime().exec(System.getenv("windir") +"\\system32\\"+"tasklist.exe");
+                    input =  new BufferedReader(new InputStreamReader(pCheck.getInputStream()));
+
+                    while ((line = input.readLine()) != null) {
+                        pidInfo+=line; 
+                    }
+                    input.close();
                     if(pidInfo.contains("vlc.exe"))
                     {
-                        System.out.println("Yay!!!!");
+                        System.out.println("Yay!VLC!!!");
                         continue;
                     }
                     else
                     {
                         openVlc();
                     }
-                } catch (IOException ex) {
-                    Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-               }
-            else{                                                               //Chrome Time
-                try {
+            }
+            else if(SysTime>1200)
+            {
+                if(SysTime==Time2)
+                {
+                    //2nd exe to execute
+                    try {
                     pCheck = null;
-                    //Below process pCheck executes the tasklist.exe cmd to get a list of all running processes
                     pCheck =Runtime.getRuntime().exec(System.getenv("windir") +"\\system32\\"+"tasklist.exe");
-                    //Get each process name in the list in a Buffer input
                     input =  new BufferedReader(new InputStreamReader(pCheck.getInputStream()));
 
-                    //Insert elements of 'input' into 'line' and then check if line is null or not
-                    //Run the loop till the input is !null
-                    //Keep adding each 'line' to the String named 'pidInfo'
                     while ((line = input.readLine()) != null) {
                         pidInfo+=line; 
                     }
-                    //Close the input
                     input.close();
-                    //Check if the huge string 'pidInfo' contains our .exe name
                     if(pidInfo.contains("chrome.exe"))
                     {
-                        System.out.println("Yay!!!!");
+                        pCheck = null;
+                        pCheck =Runtime.getRuntime().exec("taskkill /f /im chrome.exe");
+                        System.out.println("Yay!Chrome!!!");
                         continue;
                     }
                     else
                     {
+                        close();
                         openChrome();
+                        Thread.sleep(10000);
                     }
-                    Thread.sleep(pause);
-                } catch (Exception ex) {
-                    Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    close();
+                    //pause
                 }
-           }
-        }
-        else if(SysTime<=2359 && SysTime>1200)                            /*****************23:59**************/
-          {
-            if(SysTime < Time2)                     //VLC Time
-               {
-                try {
+                else
+                {
+                    try {
                     pCheck = null;
-                    //Below process pCheck executes the tasklist.exe cmd to get a list of all running processes 
                     pCheck =Runtime.getRuntime().exec(System.getenv("windir") +"\\system32\\"+"tasklist.exe");
-                    //Get each process name in the list in a Buffer input
                     input =  new BufferedReader(new InputStreamReader(pCheck.getInputStream()));
 
-                    //Insert elements of 'input' into 'line' and then check if line is null or not
-                    //Run the loop till the input is !null
-                    //Keep adding each 'line' to the String named 'pidInfo'
                     while ((line = input.readLine()) != null) {
                         pidInfo+=line; 
                     }
-                    //Close the input
                     input.close();
-                    //Check if the huge string 'pidInfo' contains our .exe name
                     if(pidInfo.contains("vlc.exe"))
                     {
-                        System.out.println("Yay!!!!");
+                        System.out.println("Yay!VLC!!!");
                         continue;
                     }
                     else
                     {
                         openVlc();
                     }
-                } catch (IOException ex) {
-                    Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-               }
-            else{                                                               //Chrome Time
-                try {
-                    pCheck = null;
-                    //Below process pCheck executes the tasklist.exe cmd to get a list of all running processes
-                    pCheck =Runtime.getRuntime().exec(System.getenv("windir") +"\\system32\\"+"tasklist.exe");
-                    //Get each process name in the list in a Buffer input
-                    input =  new BufferedReader(new InputStreamReader(pCheck.getInputStream()));
-
-                    //Insert elements of 'input' into 'line' and then check if line is null or not
-                    //Run the loop till the input is !null
-                    //Keep adding each 'line' to the String named 'pidInfo'
-                    while ((line = input.readLine()) != null) {
-                        pidInfo+=line; 
-                    }
-                    //Close the input
-                    input.close();
-                    //Check if the huge string 'pidInfo' contains our .exe name
-                    if(pidInfo.contains("chrome.exe"))
-                    {
-                        System.out.println("Yay!!!!");
-                        continue;
-                    }
-                    else
-                    {
-                        openChrome();
-                    }
-                    Thread.sleep(pause);
-                } catch (Exception ex) {
-                    Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
-                }
-           }
+            }
         }
-    }
 }
 }    
