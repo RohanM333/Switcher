@@ -1,6 +1,8 @@
 package switcher;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
@@ -13,7 +15,7 @@ import java.util.logging.Logger;
 
 public class Switcher implements Runnable{
 
-    String exe1=null, exe2=null, path1=null, path2=null;
+    String exe1=null, exe2=null, path1=null, path2=null, play1=null;
     static Process pr, pCheck;
     private AtomicBoolean keepRunning;
     BufferedReader input;
@@ -21,14 +23,48 @@ public class Switcher implements Runnable{
     Switcher()
     {
         keepRunning = new AtomicBoolean(true);
+        initVal();
+    }
+    
+    public void initVal()
+    {
+        int i=0;
+        try {
+			File file = new File("Prog.sys");
+			FileReader fileReader = new FileReader(file);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+                            if(i==0)
+                                exe1=line;
+                            else if(i==1)
+                                path1=line;
+                            else if(i==2)
+                            {
+                                if(line=="1")
+                                    play1=null;
+                                else
+                                    play1=line;
+                            }
+                            else if(i==3)
+                                exe2=line;
+                            else
+                                path2=line;
+                            i++;
+			}
+			fileReader.close();
+                        //System.out.println(path1 + exe1 + " \"" + play1 + "\"");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     public void openChrome()
     {
          try {
              Runtime rt = Runtime.getRuntime();
-             path2 = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\";
-             exe2 = "Chrome.exe";
+             //path2 = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\";
+             //exe2 = "Chrome.exe";
              pr = rt.exec(path2+exe2); 
             //pr = rt.exec("C:\\Program Files (x86)\\Google\\Chrome\\Application\\Chrome.exe"); 
 
@@ -42,13 +78,14 @@ public class Switcher implements Runnable{
     
     public void openVlc() {
 
-        String path = "E:\\GTA San Andreas\\DJ-SpongeBob\\Linkin Park";
-        path1 = "C:\\Program Files (x86)\\VideoLAN\\VLC\\";
-        exe1 = "vlc.exe";
+        String path = "D:\\GTA San Andreas\\DJ-SpongeBob\\Linkin Park";
+        //path1 = "C:\\Program Files (x86)\\VideoLAN\\VLC\\";
+        //exe1 = "vlc.exe";
          try {
              Runtime rt = Runtime.getRuntime();
              //pr = rt.exec("\"C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe\" \""+path+"\""); 
              pr = rt.exec(path1 + exe1 + " \"" + path + "\"");
+             System.out.println(path1 + exe1 + " \"" + path + "\"");
              //Thread.sleep(10000);
 
          } catch(Exception e) {
@@ -63,8 +100,14 @@ public class Switcher implements Runnable{
         }
 
     public void stop() {
-        keepRunning.set(false);
-        close();
+        try {
+            keepRunning.set(false);
+            Process pkill = Runtime.getRuntime().exec("taskkill /f /im " + exe2);
+            pkill = Runtime.getRuntime().exec("taskkill /f /im "+exe1);
+            close();
+        } catch (IOException ex) {
+            Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override
@@ -96,11 +139,11 @@ public class Switcher implements Runnable{
                         pidInfo+=line; 
                     }
                     input.close();
-                    if(pidInfo.contains("chrome.exe"))
+                    if(pidInfo.contains(exe2))
                     {
                         pCheck = null;
-                        pCheck =Runtime.getRuntime().exec("taskkill /f /im chrome.exe");
-                        System.out.println("Yay!Chrome!!!");
+                        pCheck =Runtime.getRuntime().exec("taskkill /f /im "+exe2);
+                        System.out.println("Yay! "+exe2+"!!!");
                         continue;
                     }
                     else
@@ -126,9 +169,9 @@ public class Switcher implements Runnable{
                         pidInfo+=line; 
                     }
                     input.close();
-                    if(pidInfo.contains("vlc.exe"))
+                    if(pidInfo.contains(exe1))
                     {
-                        System.out.println("Yay!VLC!!!");
+                        System.out.println("Yay! "+exe1+"!!!");
                         continue;
                     }
                     else
@@ -154,11 +197,11 @@ public class Switcher implements Runnable{
                         pidInfo+=line; 
                     }
                     input.close();
-                    if(pidInfo.contains("chrome.exe"))
+                    if(pidInfo.contains(exe2))
                     {
                         pCheck = null;
-                        pCheck =Runtime.getRuntime().exec("taskkill /f /im chrome.exe");
-                        System.out.println("Yay!Chrome!!!");
+                        pCheck =Runtime.getRuntime().exec("taskkill /f /im "+exe2);
+                        System.out.println("Yay! "+exe2+"!!!");
                         continue;
                     }
                     else
@@ -184,9 +227,9 @@ public class Switcher implements Runnable{
                         pidInfo+=line; 
                     }
                     input.close();
-                    if(pidInfo.contains("vlc.exe"))
+                    if(pidInfo.contains(exe1))
                     {
-                        System.out.println("Yay!VLC!!!");
+                        System.out.println("Yay! "+exe1+"!!!");
                         continue;
                     }
                     else

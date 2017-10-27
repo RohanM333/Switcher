@@ -1,5 +1,6 @@
 package switcher;
 
+import java.awt.Color;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
@@ -19,7 +20,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         Title = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        LMenu = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         Btn = new javax.swing.JButton();
         Time1 = new javax.swing.JLabel();
@@ -31,10 +32,22 @@ public class MainFrame extends javax.swing.JFrame {
         Title.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         Title.setText("Switcher");
 
-        jLabel2.setText("Menu");
+        LMenu.setIcon(new javax.swing.ImageIcon("E:\\Switcher\\menu.png")); // NOI18N
+        LMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LMenuMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LMenuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LMenuMouseExited(evt);
+            }
+        });
 
         jLayeredPane1.setLayer(Title, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(LMenu, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -44,14 +57,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(17, 17, 17))
+                .addComponent(LMenu)
+                .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -152,6 +165,24 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnActionPerformed
 
+    private void LMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LMenuMouseEntered
+        LMenu.setOpaque(true);
+        LMenu.setBackground(Color.white);
+    }//GEN-LAST:event_LMenuMouseEntered
+
+    private void LMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LMenuMouseExited
+        LMenu.setOpaque(true);
+        Color col = new Color(214,217,223);
+        LMenu.setBackground(col);
+    }//GEN-LAST:event_LMenuMouseExited
+
+    private void LMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LMenuMouseClicked
+        Settings s = new Settings();
+        s.setLocationRelativeTo(null);
+        s.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LMenuMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -189,11 +220,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Btn;
+    private javax.swing.JLabel LMenu;
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel Time1;
     private javax.swing.JLabel Time2;
     private javax.swing.JLabel Title;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

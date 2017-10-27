@@ -1,11 +1,13 @@
 package switcher;
 
+import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Settings extends javax.swing.JFrame {
@@ -39,14 +41,14 @@ public class Settings extends javax.swing.JFrame {
         Tpath2 = new javax.swing.JTextField();
         BtnPath = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        Ttime1 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        Ttime2 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        Tpause = new javax.swing.JTextField();
         BtnTime = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        LBack = new javax.swing.JLabel();
+        Ttime1 = new javax.swing.JFormattedTextField();
+        Ttime2 = new javax.swing.JFormattedTextField();
+        Tpause = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -108,27 +110,9 @@ public class Settings extends javax.swing.JFrame {
 
         jLabel8.setText("Time 1:");
 
-        Ttime1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                Ttime1FocusLost(evt);
-            }
-        });
-
         jLabel9.setText("Time 2:");
 
-        Ttime2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                Ttime2FocusLost(evt);
-            }
-        });
-
         jLabel10.setText("Interval:");
-
-        Tpause.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                TpauseFocusLost(evt);
-            }
-        });
 
         BtnTime.setText("Update Time");
         BtnTime.addActionListener(new java.awt.event.ActionListener() {
@@ -140,8 +124,49 @@ public class Settings extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(153, 153, 153));
         jLabel11.setText("*Note: Enter time in 24 hrs format");
 
-        jLabel12.setIcon(new javax.swing.ImageIcon("E:\\Switcher\\back.png")); // NOI18N
-        jLabel12.setToolTipText("");
+        LBack.setIcon(new javax.swing.ImageIcon("E:\\Switcher\\back.png")); // NOI18N
+        LBack.setToolTipText("");
+        LBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LBackMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                LBackMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LBackMouseExited(evt);
+            }
+        });
+
+        Ttime1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        Ttime1.setMaximumSize(new java.awt.Dimension(14, 24));
+        Ttime1.setMinimumSize(new java.awt.Dimension(14, 24));
+        Ttime1.setPreferredSize(new java.awt.Dimension(18, 24));
+        Ttime1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Ttime1FocusLost(evt);
+            }
+        });
+
+        Ttime2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        Ttime2.setMaximumSize(new java.awt.Dimension(14, 24));
+        Ttime2.setMinimumSize(new java.awt.Dimension(14, 24));
+        Ttime2.setPreferredSize(new java.awt.Dimension(14, 24));
+        Ttime2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Ttime2FocusLost(evt);
+            }
+        });
+
+        Tpause.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("####"))));
+        Tpause.setMinimumSize(new java.awt.Dimension(14, 24));
+        Tpause.setPreferredSize(new java.awt.Dimension(14, 24));
+        Tpause.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TpauseFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -183,22 +208,10 @@ public class Settings extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(LBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel8)
-                            .addComponent(Ttime1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                            .addComponent(jLabel9)
-                            .addComponent(Ttime2)
-                            .addComponent(Tpause)
-                            .addComponent(jSeparator3))
-                        .addContainerGap(31, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,13 +220,25 @@ public class Settings extends javax.swing.JFrame {
                                 .addGap(77, 77, 77))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(110, 110, 110))))))
+                                .addGap(110, 110, 110))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jSeparator3)
+                            .addComponent(Ttime1, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                            .addComponent(Ttime2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Tpause, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(31, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LBack, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -250,15 +275,15 @@ public class Settings extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Ttime1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Ttime2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(16, 16, 16)
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Tpause, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(Tpause, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -294,19 +319,19 @@ public class Settings extends javax.swing.JFrame {
     private void Texe1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Texe1FocusLost
         prog1=null;
         if(Texe1.getText()!=null)
-            prog1 = Texe1.getText();
+            prog1 = Texe1.getText()+".exe";
     }//GEN-LAST:event_Texe1FocusLost
 
     private void Texe2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Texe2FocusLost
         prog2=null;
         if(Texe2.getText()!=null)
-            prog2 = Texe2.getText();
+            prog2 = Texe2.getText()+".exe";
     }//GEN-LAST:event_Texe2FocusLost
 
     private void Tpath1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tpath1FocusLost
         path1=null;
         if(Tpath1.getText()!=null)
-            path1 = Tpath1.getText()+prog1+".exe";
+            path1 = Tpath1.getText();
         if(path1.length()<1)
             path1 = null;
     }//GEN-LAST:event_Tpath1FocusLost
@@ -322,7 +347,7 @@ public class Settings extends javax.swing.JFrame {
     private void Tpath2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tpath2FocusLost
         path2=null;
         if(Tpath2.getText()!=null)
-            path2 = Tpath2.getText()+prog2+".exe";
+            path2 = Tpath2.getText();
         if(path2.length()<1)
             path2 = null;
     }//GEN-LAST:event_Tpath2FocusLost
@@ -345,7 +370,10 @@ public class Settings extends javax.swing.JFrame {
                 
                 FileWriter fstream = new FileWriter("Prog.sys", false); //true tells to append data.
                 out = new BufferedWriter(fstream);
-                out.write(prog1+"\n"+path1+"\n"+play1+"\n"+prog2+"\n"+path2);
+                if(play1==null)
+                    out.write(prog1+"\n"+path1+"\n"+"1"+"\n"+prog2+"\n"+path2);
+                else    
+                    out.write(prog1+"\n"+path1+"\n"+play1+"\n"+prog2+"\n"+path2);
                 
             } catch (IOException ex) {
                 Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
@@ -359,30 +387,6 @@ public class Settings extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_BtnPathActionPerformed
-
-    private void Ttime1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Ttime1FocusLost
-        time1=null;
-        if(Ttime1.getText()!=null)
-            time1 = Ttime1.getText();
-        if(time1.length()<1)
-            time1 = null;
-    }//GEN-LAST:event_Ttime1FocusLost
-
-    private void Ttime2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Ttime2FocusLost
-        time2=null;
-        if(Ttime2.getText()!=null)
-            time2 = Ttime2.getText();
-        if(time2.length()<1)
-            time2 = null;
-    }//GEN-LAST:event_Ttime2FocusLost
-
-    private void TpauseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TpauseFocusLost
-        interval = null;
-        if(Tpause.getText()!=null)
-            interval = Tpause.getText();
-        if(interval.length()<1)
-            interval = null;
-    }//GEN-LAST:event_TpauseFocusLost
 
 /**********************************Right Hand Side********************************************/
     
@@ -418,6 +422,48 @@ public class Settings extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_BtnTimeActionPerformed
+
+    private void LBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LBackMouseEntered
+        LBack.setOpaque(true);
+        LBack.setBackground(Color.GRAY);
+    }//GEN-LAST:event_LBackMouseEntered
+
+    private void LBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LBackMouseExited
+        LBack.setOpaque(true);
+        Color backColor = new Color(214, 217, 223);
+        LBack.setBackground(backColor);
+    }//GEN-LAST:event_LBackMouseExited
+
+    private void LBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LBackMouseClicked
+        MainFrame m=new MainFrame();
+        m.setLocationRelativeTo(null);
+        m.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LBackMouseClicked
+
+    private void Ttime1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Ttime1FocusLost
+        time1=null;
+        if(Ttime1.getText()!=null)
+            time1 = Ttime1.getText();
+        if(time1.length()<1)
+            time1 = null;
+    }//GEN-LAST:event_Ttime1FocusLost
+
+    private void Ttime2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Ttime2FocusLost
+        time2=null;
+        if(Ttime2.getText()!=null)
+            time2 = Ttime2.getText();
+        if(time2.length()<1)
+            time2 = null;
+    }//GEN-LAST:event_Ttime2FocusLost
+
+    private void TpauseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TpauseFocusLost
+        interval=null;
+        if(Tpause.getText()!=null)
+            interval = Tpause.getText();
+        if(time1.length()<1)
+            interval = null;
+    }//GEN-LAST:event_TpauseFocusLost
     
     
     public static void main(String args[]) {
@@ -457,18 +503,18 @@ public class Settings extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnPath;
     private javax.swing.JButton BtnTime;
+    private javax.swing.JLabel LBack;
     private javax.swing.JTextField Texe1;
     private javax.swing.JTextField Texe2;
     private javax.swing.JTextField Tpath1;
     private javax.swing.JTextField Tpath2;
-    private javax.swing.JTextField Tpause;
+    private javax.swing.JFormattedTextField Tpause;
     private javax.swing.JTextField Tplay1;
-    private javax.swing.JTextField Ttime1;
-    private javax.swing.JTextField Ttime2;
+    private javax.swing.JFormattedTextField Ttime1;
+    private javax.swing.JFormattedTextField Ttime2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
