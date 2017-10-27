@@ -1,7 +1,18 @@
 package switcher;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 public class Settings extends javax.swing.JFrame {
 
+    private String prog1=null, prog2=null, path1=null, path2=null, play1=null;
+    private String time1=null, time2=null, interval=null;
+    
     public Settings() {
         initComponents();
     }
@@ -49,53 +60,81 @@ public class Settings extends javax.swing.JFrame {
 
         jLabel3.setText("Program 1");
 
-        Texe1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Texe1ActionPerformed(evt);
+        Texe1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Texe1FocusLost(evt);
             }
         });
 
         jLabel4.setText("Path #1:");
 
-        Tpath1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Tpath1ActionPerformed(evt);
+        Tpath1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Tpath1FocusLost(evt);
             }
         });
 
         jLabel6.setText("Program 2");
 
+        Texe2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Texe2FocusLost(evt);
+            }
+        });
+
         jLabel5.setText("Playlist #1:");
 
-        Tplay1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Tplay1ActionPerformed(evt);
+        Tplay1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Tplay1FocusLost(evt);
             }
         });
 
         jLabel7.setText("Path #2:");
 
+        Tpath2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Tpath2FocusLost(evt);
+            }
+        });
+
         BtnPath.setText("Save");
+        BtnPath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPathActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Time 1:");
 
+        Ttime1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Ttime1FocusLost(evt);
+            }
+        });
+
         jLabel9.setText("Time 2:");
 
-        Ttime2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Ttime2ActionPerformed(evt);
+        Ttime2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Ttime2FocusLost(evt);
             }
         });
 
         jLabel10.setText("Interval:");
 
-        Tpause.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TpauseActionPerformed(evt);
+        Tpause.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TpauseFocusLost(evt);
             }
         });
 
         BtnTime.setText("Update Time");
+        BtnTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTimeActionPerformed(evt);
+            }
+        });
 
         jLabel11.setForeground(new java.awt.Color(153, 153, 153));
         jLabel11.setText("*Note: Enter time in 24 hrs format");
@@ -179,7 +218,7 @@ public class Settings extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -240,26 +279,138 @@ public class Settings extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Tpath1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tpath1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Tpath1ActionPerformed
+    
+/***********************************Left Hand Side******************************************************/
+    
+    private void Texe1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Texe1FocusLost
+        prog1=null;
+        if(Texe1.getText()!=null)
+            prog1 = Texe1.getText();
+    }//GEN-LAST:event_Texe1FocusLost
 
-    private void Texe1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Texe1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Texe1ActionPerformed
+    private void Texe2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Texe2FocusLost
+        prog2=null;
+        if(Texe2.getText()!=null)
+            prog2 = Texe2.getText();
+    }//GEN-LAST:event_Texe2FocusLost
 
-    private void Tplay1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Tplay1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Tplay1ActionPerformed
+    private void Tpath1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tpath1FocusLost
+        path1=null;
+        if(Tpath1.getText()!=null)
+            path1 = Tpath1.getText()+prog1+".exe";
+        if(path1.length()<1)
+            path1 = null;
+    }//GEN-LAST:event_Tpath1FocusLost
 
-    private void Ttime2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ttime2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Ttime2ActionPerformed
+    private void Tplay1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tplay1FocusLost
+        play1=null;
+        if(Tplay1.getText()!=null)
+            play1 = Tplay1.getText();
+        if(play1.length()<1)
+            play1 = null;
+    }//GEN-LAST:event_Tplay1FocusLost
 
-    private void TpauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TpauseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TpauseActionPerformed
+    private void Tpath2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Tpath2FocusLost
+        path2=null;
+        if(Tpath2.getText()!=null)
+            path2 = Tpath2.getText()+prog2+".exe";
+        if(path2.length()<1)
+            path2 = null;
+    }//GEN-LAST:event_Tpath2FocusLost
 
+    private void BtnPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPathActionPerformed
+        if(prog1==null || prog2==null || path1==null || path2==null)
+        {
+            JOptionPane.showMessageDialog(null, "Please enter all fields", "Warning!", JOptionPane.WARNING_MESSAGE);
+        }
+        else
+        {
+            //Create Files
+            File f = new File("Prog.sys");
+            BufferedWriter out = null;
+            try {
+                if(f.createNewFile())
+                    System.out.println("Created!");
+                else
+                    System.out.println("Already Exists!");
+                
+                FileWriter fstream = new FileWriter("Prog.sys", false); //true tells to append data.
+                out = new BufferedWriter(fstream);
+                out.write(prog1+"\n"+path1+"\n"+play1+"\n"+prog2+"\n"+path2);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if(out!=null)
+                   try {
+                       out.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnPathActionPerformed
+
+    private void Ttime1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Ttime1FocusLost
+        time1=null;
+        if(Ttime1.getText()!=null)
+            time1 = Ttime1.getText();
+        if(time1.length()<1)
+            time1 = null;
+    }//GEN-LAST:event_Ttime1FocusLost
+
+    private void Ttime2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Ttime2FocusLost
+        time2=null;
+        if(Ttime2.getText()!=null)
+            time2 = Ttime2.getText();
+        if(time2.length()<1)
+            time2 = null;
+    }//GEN-LAST:event_Ttime2FocusLost
+
+    private void TpauseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TpauseFocusLost
+        interval = null;
+        if(Tpause.getText()!=null)
+            interval = Tpause.getText();
+        if(interval.length()<1)
+            interval = null;
+    }//GEN-LAST:event_TpauseFocusLost
+
+/**********************************Right Hand Side********************************************/
+    
+    private void BtnTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTimeActionPerformed
+        if(time1==null || time2==null || interval==null)
+        {
+            JOptionPane.showMessageDialog(null, "Please enter all fields", "Warning!", JOptionPane.WARNING_MESSAGE);
+        }
+        else
+        {
+            //Create Files
+            File f = new File("Time.sys");
+            BufferedWriter out = null;
+            try {
+                if(f.createNewFile())
+                    System.out.println("Created!");
+                else
+                    System.out.println("Already Exists!");
+                
+                FileWriter fstream = new FileWriter("Time.sys", false); //true tells to append data.
+                out = new BufferedWriter(fstream);
+                out.write(time1+"\n"+time2+"\n"+interval);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if(out!=null)
+                   try {
+                       out.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_BtnTimeActionPerformed
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
