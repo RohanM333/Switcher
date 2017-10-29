@@ -17,6 +17,7 @@ public class Switcher implements Runnable{
 
     String exe1=null, exe2=null, path1=null, path2=null, play1=null;
     static Process pr, pCheck;
+    static int Time1=-1, Time2=-1, Pause=-1;
     private AtomicBoolean keepRunning;
     BufferedReader input;
     
@@ -30,33 +31,58 @@ public class Switcher implements Runnable{
     {
         int i=0;
         try {
-			File file = new File("Prog.sys");
-			FileReader fileReader = new FileReader(file);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-                            if(i==0)
-                                exe1=line;
-                            else if(i==1)
-                                path1=line;
-                            else if(i==2)
-                            {
-                                if(line=="1")
-                                    play1=null;
-                                else
-                                    play1=line;
-                            }
-                            else if(i==3)
-                                exe2=line;
-                            else
-                                path2=line;
-                            i++;
-			}
-			fileReader.close();
-                        //System.out.println(path1 + exe1 + " \"" + play1 + "\"");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		File file = new File("Prog.sys");
+		FileReader fileReader = new FileReader(file);
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		String line;
+		while ((line = bufferedReader.readLine()) != null) {
+                      if(i==0)
+                         exe1=line;
+                      else if(i==1)
+                         path1=line;
+                      else if(i==2)
+                        {
+                           if(line=="1")
+                             play1=null;
+                           else
+                             play1=line;
+                        }
+                      else if(i==3)
+                          exe2=line;
+                      else
+                          path2=line;
+                          i++;
+                    }
+		fileReader.close();
+                //System.out.println(path1 + exe1 + " \"" + play1 + "\"");
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+        
+        
+        try {
+		File file = new File("Time.sys");
+		FileReader fileReader = new FileReader(file);
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		String line;
+                i=0;
+		while ((line = bufferedReader.readLine()) != null) {
+                      if(i==0)
+                         Time1=Integer.parseInt(line);
+                      else if(i==1)
+                         Time2=Integer.parseInt(line);
+                      else if(i==2)
+                          Pause=Integer.parseInt(line);
+                      i++;
+                    }
+		fileReader.close();
+                System.out.println(Time1);
+                System.out.println(Time2);
+                System.out.println(Pause);
+                //System.out.println(path1 + exe1 + " \"" + play1 + "\"");
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
     }
     
     public void openChrome()
@@ -116,18 +142,19 @@ public class Switcher implements Runnable{
         DateFormat t = new SimpleDateFormat("HHmm");
         
         while (keepRunning.get()) {
-            int SysTime, Time1, Time2;
+            int SysTime;
+            //int Time1, Time2;
             //System.out.println("Thread Running!");
             String line, pidInfo = "";
             Date time = new Date();
             System.out.println(t.format(time));
             SysTime = Integer.parseInt(t.format(time));
-            Time1 = 0000;
-            Time2 = 2142;
+            //Time1 = 0000;
+            //Time2 = 1243;
             
             if(SysTime<=1200)
             {
-                if(SysTime==Time2)
+                if(SysTime==Time1)
                 {
                     //2nd exe to execute
                     try {
@@ -150,7 +177,7 @@ public class Switcher implements Runnable{
                     {
                         close();
                         openChrome();
-                        Thread.sleep(10000);
+                        Thread.sleep(Pause*1000*60);
                     }
                     } catch (Exception ex) {
                         Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,7 +235,7 @@ public class Switcher implements Runnable{
                     {
                         close();
                         openChrome();
-                        Thread.sleep(10000);
+                        Thread.sleep(Pause*1000*60);
                     }
                     } catch (Exception ex) {
                         Logger.getLogger(Switcher.class.getName()).log(Level.SEVERE, null, ex);
